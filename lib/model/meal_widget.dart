@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Meal_Widget extends StatefulWidget {
+class MealWidget extends StatefulWidget {
   final String name;
   final int kcal;
   final String conteudo;
   final String horario;
 
-  const Meal_Widget({required this.name, required this.kcal, required this.conteudo, required this.horario, Key? key})
+  const MealWidget({required this.name, required this.kcal, required this.conteudo, required this.horario, Key? key})
       : super(key: key);
 
   @override
-  State<Meal_Widget> createState() => _Meal_WidgetState();
+  State<MealWidget> createState() => _Meal_WidgetState();
 }
 
-class _Meal_WidgetState extends State<Meal_Widget> {
+class _Meal_WidgetState extends State<MealWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
