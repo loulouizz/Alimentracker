@@ -32,8 +32,9 @@ class DB{
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT,
         calorias INTEGER,
-        horario DATE
-        
+        data DATE,
+        horario TIME,
+        conteudo TEXT
      )
   ''';
 }
