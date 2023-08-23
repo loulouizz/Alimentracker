@@ -35,13 +35,15 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Header(),
-            MealWidget(name: "Café da manhã", kcal: 100, conteudo: "1 pão com 2 ovos", horario: "7:10"),
-            /*ListView.builder(
-                itemCount: mealRepository.todaysMeals.length,
-                itemBuilder: (context, index){
-                  List<Meal> mealList = mealRepository.todaysMeals;
-                  return MealWidget(name: mealList[index].name, kcal: mealList[index].kcal, conteudo: "", horario: mealList[index].horario);
-                })*/
+            Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
+                  itemCount: mealRepository.todaysMeals.length,
+                  itemBuilder: (context, index){
+                    List<Meal> mealList = mealRepository.todaysMeals;
+                    return MealWidget(name: mealList[index].name, kcal: mealList[index].kcal, conteudo: "", horario: mealList[index].horario);
+                  }),
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(onPressed: _addMealDialog, child: Icon(Icons.add, color: Colors.white,), backgroundColor: Colors.black,),

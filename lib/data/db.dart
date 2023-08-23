@@ -19,11 +19,11 @@ class DB{
     return await openDatabase(
       join(await getDatabasesPath(), 'alimentracker.db'),
       version: 1,
-      onCreate: _onCreate,
+      onCreate: onCreate,
     );
   }
 
-  _onCreate(db, versao) async {
+  onCreate(db, versao) async {
     await db.execute(_meal);
   }
 

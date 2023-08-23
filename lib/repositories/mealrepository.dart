@@ -29,14 +29,19 @@ class MealRepository extends ChangeNotifier{
   }
 
   _initRepository() async{
-    await _getList;
+    await _getList();
+  }
+
+  updateList(){
+    _getList();
+    notifyListeners();
   }
 
   _getList() async{
     db = await DB.instance.database;
-    List mealList = await db.query('meal');
+    List mealList = await db.rawQuery('SELECT * FROM meal');
     mealList.forEach((meal) {
-      _todaysMeals.add(Meal(name: meal['nome'], kcal: meal['calorias'], conteudo: meal['conteudo'], horario: meal['horario'], data:  meal['data']));
+      _todaysMeals.add(Meal(name: meal['nome'] ?? "vazio", kcal: meal['calorias'] ?? "vazio", conteudo: meal['conteudo'] ?? "vazio", horario: meal['horario'] ?? "vazio", data:  meal['data'] ?? "vazio"));
     });
     notifyListeners();
   }
