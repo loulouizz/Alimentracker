@@ -1,20 +1,18 @@
+
+import 'package:alimentracker/data/MealService.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MealWidget extends StatefulWidget {
+class MealWidget extends StatelessWidget {
+  final String id;
   final String name;
   final int kcal;
   final String conteudo;
   final String horario;
 
-  const MealWidget({required this.name, required this.kcal, required this.conteudo, required this.horario, Key? key})
-      : super(key: key);
+  MealWidget({required this.id, required this.name, required this.kcal, required this.conteudo, required this.horario});
 
-  @override
-  State<MealWidget> createState() => _Meal_WidgetState();
-}
-
-class _Meal_WidgetState extends State<MealWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,33 +20,48 @@ class _Meal_WidgetState extends State<MealWidget> {
       child: SizedBox(
         width: double.infinity,
         height: 80,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Color.fromRGBO(57, 57, 57, 1), borderRadius: BorderRadius.circular(20)),
-          width: 300,
-          height: 72,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                Expanded(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.name, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
-                  ],
-                )),
-                Expanded(child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text("${widget.kcal} kcal", style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
-                    Text(widget.horario, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
-                  ],
-                )),
-              ],
-            ),
-          )
+        child: Slidable(
+          endActionPane: ActionPane(
+            motion: StretchMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) => {
+                  MealService().deleteMeal(id)
+                },
+                icon: Icons.delete,
+                backgroundColor: Colors.red.shade400,
+                borderRadius: BorderRadius.circular(12),
+              )
+            ],
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(57, 57, 57, 1), borderRadius: BorderRadius.circular(20)),
+
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Expanded(flex: 3, child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
+                      Text(conteudo, overflow: TextOverflow.fade, maxLines: 2,  style: GoogleFonts.lato(color: Colors.white, fontSize: 12)),
+                    ],
+                  )),
+                  Expanded(flex: 1, child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("$kcal kcal", style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
+                      Text(horario, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
+                    ],
+                  )),
+                ],
+              ),
+            )
+          ),
         ),
       ),
     );

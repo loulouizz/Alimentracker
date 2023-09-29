@@ -1,15 +1,19 @@
 
-import 'package:alimentracker/data/db.dart';
-import 'package:alimentracker/repositories/mealrepository.dart';
+import 'package:alimentracker/data/MealService.dart';
+import 'package:alimentracker/firebase_options.dart';
 import 'package:alimentracker/screens/main/main_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(
-    ChangeNotifierProvider(create: (context) => MealRepository(),
-    child: MyApp(),),
+    MyApp(),
   );
 }
 
@@ -22,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: MainScreen(),
     );
   }
