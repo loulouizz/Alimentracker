@@ -46,7 +46,7 @@ class MealWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(name, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
+                      Text(name, overflow: TextOverflow.fade, maxLines: 1, style: GoogleFonts.lato(color: Colors.white, fontSize: 20)),
                       Text(conteudo, overflow: TextOverflow.fade, maxLines: 2,  style: GoogleFonts.lato(color: Colors.white, fontSize: 12)),
                     ],
                   )),

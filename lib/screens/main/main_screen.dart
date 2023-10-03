@@ -85,7 +85,10 @@ class _MainScreenState extends State<MainScreen> {
 
                 return Column(
                   children: [
-                    Header(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Header(),
+                    ),
                     Expanded(
                       child: ListView.builder(
                           itemCount: docs.length,
@@ -123,7 +126,7 @@ class _MainScreenState extends State<MainScreen> {
         content: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Container(
-            height: 312,
+            height: 322,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -210,12 +213,17 @@ class _MainScreenState extends State<MainScreen> {
             onPressed: () {
               print("nomeEC.text: ${nomeEC.text}");
               print("conteudoEC.text: ${conteudoEC.text}");
-              Meal m = Meal(name: nomeEC.text, kcal: int.parse(caloriasEC.text), conteudo: conteudoEC.text, horario: "${_selectedTime.hour}:${_selectedTime.minute.toString().padLeft(2, '0')}", data: '29/09/2023');
+              Meal m = Meal(name: nomeEC.text, kcal: int.parse(caloriasEC.text), conteudo: conteudoEC.text, horario: "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}", data: '29/09/2023');
               MealService().addMeal(m);
               Navigator.of(context).pop();
               try{
               } catch(e){
                 print("Excessão ao salvar: $e");
+              } finally {
+                nomeEC.clear();
+                conteudoEC.clear();
+                horarioEC.clear();
+                caloriasEC.clear();
               }
             },
             style: ButtonStyle(
